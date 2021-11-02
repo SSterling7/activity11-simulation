@@ -112,7 +112,7 @@ sd(exp_samp_30$values)
 ## Many distributions
 
 We previously looked at one distribution at a time.
-It would be nice to explore multiple distributions simulataneouly.
+It would be nice to explore multiple distributions simultaneously.
 To do this, we will create a new function.
 Yay!
 
@@ -123,6 +123,25 @@ This function should produce a dataset with `n` rows.
 You should **not** use the default parameter options for these distributions (e.g., your Normal data should not have a mean of 0 or a standard deviation of 1).
 Test your function with `n = 30` and `n = 1000`.
 
+```{r}
+generate_n_samples <- function(n) {
+    norm_samp <- rnorm(n = n, mean = 45, sd = 5)
+
+    exp_samp <- rexp(n = n, rate = .05)
+
+    chi_samp <- rchisq(n = n, df = 3)
+
+    uniform_samp <- runif(n = n, min = 0, max = 10)
+    
+    tibble::tibble (
+      norm_samp,
+      exp_samp,
+      chi_samp,
+      uniform_samp
+    )
+}
+
+```
 
 
 
@@ -140,10 +159,10 @@ These are the "population values".
 
 | Distribution | Mean       | SD         |
 |--------------|------------|------------|
-| Normal       |            |            |
-| Exponential  |            |            |
-| Chi-square   |            |            |
-| Uniform      |            |            |
+| Normal       | 45.06      |            |
+| Exponential  |  21.02     |            |
+| Chi-square   |  2.90      |            |
+| Uniform      |  2.99      |            |
 
 
 Below I provide you with a function that calculates the sample mean for each column/distribution.
@@ -160,6 +179,9 @@ Then, use this function in addition to your multiple distribution sample generat
 Discuss how the means compares for each distribution.
 Note that it doesn't make sense to compare means/standard deviations across the distributions.
 
+```{r}
+sample_mean(generate_n_samples(n=30))
+```
 
 
 
